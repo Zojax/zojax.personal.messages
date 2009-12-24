@@ -1,0 +1,42 @@
+<tal:block i18n:domain="zojax.personal.messages">
+  <h2 i18n:translate="">Personal messages</h2>
+
+  <div class="z-table-container">
+    <table class="z-table">
+      <thead>
+	<tr>
+	  <th>&nbsp;</th>
+	  <th i18n:translate="">Title</th>
+	  <th i18n:translate="">From</th>
+	  <th i18n:translate="">Avatar</th>
+	  <th i18n:translate="">Date</th>
+	</tr>
+      </thead>
+      <tbody>
+	<tr tal:repeat="info view/listMessages"
+	    tal:attributes="class python:repeat['info'].odd() and 'even' or 'odd'">
+	  <td><input type="checkbox" name="msgid:list" tal:attributes="value info/name" /></td>
+	  <td>
+	    <strong tal:omit-tag="not:info/status">
+	      <a tal:attributes="href string:${info/name}/" tal:content="info/title"></a>
+	    </strong>
+	  </td>
+	  <td>
+	    <a tal:attributes="href info/profile"
+	       tal:content="info/sender" tal:omit-tag="not:info/profile">
+	    </a>
+	  </td>
+	  <td class="ctb-avatar">
+	    <div tal:condition="info/avatar">
+	      <a tal:attributes="href info/profile"
+		 tal:omit-tag="not:info/profile">
+		<img tal:attributes="src info/avatar" />
+	      </a>
+	    </div>
+	  </td>
+	  <td tal:content="structure formatter:fancyDatetime:info/date"></td>
+	</tr>
+      </tbody>
+    </table>
+  </div>
+</tal:block>

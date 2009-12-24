@@ -1,0 +1,54 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.personal.messages">
+
+  <permission
+     id="zojax.ViewPersonalMessages"
+     title="View personal message" />
+
+  <grant
+     role="content.Owner"
+     permission="zojax.ViewPersonalMessages" />
+
+  <!-- messages workspace -->
+  <adapter
+     name="messages"
+     factory=".workspace.MessagesWorkspaceFactory" />
+  
+  <class class=".workspace.MessagesWorkspace">
+    <implements interface="zojax.ownership.interfaces.IInheritOwnership" />
+
+    <require
+       permission="zojax.ViewPersonalMessages"
+       interface=".interfaces.IMessagesWorkspace" />
+  </class>
+
+  <adapter factory=".workspace.getMessageStorage" />
+
+  <!-- messaging service -->
+  <utility
+     name="zojax.personal.messages"
+     provides="zojax.messaging.service.IMessageServiceFactory"
+     component=".service.PersonalMessages" />
+
+  <class class=".message.PersonalMessage">
+    <allow interface=".interfaces.IPersonalMessage" />
+  </class>
+
+  <class class=".service.PersonalMessages">
+    <allow interface="zojax.messaging.interfaces.IMessageService" />
+  </class>
+
+  <!-- preference -->
+  <zojax:preferenceGroup
+     id="messaging.personal"
+     schema=".interfaces.IPersonalMessages"
+     title="Personal messages"
+     description="These are the preferences related to personal messages." />
+
+  <!-- browser views -->
+  <include package=".browser" />
+
+</configure>

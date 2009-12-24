@@ -1,0 +1,71 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.personal.messages">
+
+  <!-- send message -->
+  <zojax:pagelet
+     name="sendmessage.html"
+     for="zojax.personal.profile.interfaces.IProfileWorkspace"
+     class=".send.SendMessage"
+     permission="zope.Public" />
+
+  <adapter
+     name="personal.message"
+     factory=".actions.SendPrivateMessage" />
+
+  <!-- message views -->
+  <zojax:pagelet
+     name="index.html"
+     for="..interfaces.IPersonalMessage"
+     template="messageview.pt"
+     class=".messageview.MessageView"
+     permission="zojax.ViewPersonalMessages" />
+
+  <!-- message view for mail -->
+  <zojax:pagelet
+     type="messaging.mail.view"
+     for="..interfaces.IPersonalMessage"
+     template="messagemail.pt"
+     class=".messageview.MessageMail" />
+
+  <adapter
+     name="from"
+     factory=".messageview.FromAddress" />
+
+  <!-- personal message service view -->
+  <zojax:pagelet
+     type="messaging.service.view"
+     for="..interfaces.IPersonalMessageService"
+     template="service.pt"
+     class=".service.ServiceView" />
+
+  <!-- portlet managers -->
+  <zojax:portletManager
+     name="columns.left"
+     title="Left column portlets"
+     for="..interfaces.IMessagesWorkspace" />
+
+  <zojax:portletManager
+     name="columns.right"
+     title="Right column portlets"
+     for="..interfaces.IMessagesWorkspace" />
+
+  <!-- icons -->
+  <browser:icon
+     name="zmi_icon"
+     file="message.png"
+     for="..interfaces.IMessagesWorkspace" />
+  
+  <browser:icon
+     name="zmi_icon"
+     file="message.png"
+     for="..interfaces.IMessagesWorkspaceFactory" />
+
+  <browser:icon
+     name="zmi_icon"
+     file="message.png"
+     for=".actions.ISendPrivateMessage" />
+
+</configure>

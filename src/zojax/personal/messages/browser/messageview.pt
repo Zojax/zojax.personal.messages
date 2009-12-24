@@ -1,0 +1,20 @@
+<h1>Message sent by <a tal:content="view/sender"
+		       tal:omit-tag="not:view/profile"
+		       tal:attributes="href view/profile"></a>
+</h1>
+<br />
+
+<div class="z-topframe even">
+  <h1 tal:content="context/title">Message title</h1>
+  <div id="z-content-byline" class="discreet">
+    Created at <tal:block content="structure formatter:fancyDatetime:context/__date__" />
+  </div>
+  <br />
+
+  <tal:block content="structure context/text" />
+</div>
+
+<tal:block condition="python:view.messaging is not None">
+  <br />
+  <div tal:content="structure view/@@pagelet/form"></div>
+</tal:block>

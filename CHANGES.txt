@@ -1,0 +1,102 @@
+=======
+CHANGES
+=======
+
+0.5.7 (2009-11-11)
+------------------
+
+- Fixed send message to new messages workspace
+
+
+0.5.6 (2009-08-19)
+------------------
+
+- Fix security bug, all users could view personal message
+
+
+0.5.5 (2009-08-19)
+------------------
+
+- Update template ui
+
+
+0.5.4 (2009-08-12)
+------------------
+
+- Use newer api for IWorkspaceFactory
+
+- Update test for chameleon enabled setup
+
+
+0.5.3 (2009-06-23)
+------------------
+
+- Use new personal profile api
+
+- Copyright changed to 'Zope Foundation and Contributors'
+
+
+0.5.2 (2009-05-05)
+------------------
+
+- Add quoting text to reply
+
+- Fixed 'emtpy messages' message
+
+- Do not use z3c.autoinclude
+
+
+0.5.1 (2009-03-27)
+------------------
+
+- Fixed mail message view recursion
+
+
+0.5.0 (2009-03-27)
+------------------
+
+- Handle members without pesonal space
+
+- Fixed bug in send message form with empty field values
+
+- Removed unused code
+
+- Added 'from' address to mail
+
+- Added custom mail message view
+
+
+0.4.0 (2009-03-25)
+------------------
+
+- Use actions portlet for 'send private message' action
+
+- Custom personal messages service view
+
+
+0.3.0 (2009-03-17)
+------------------
+
+- Added messages workspace
+
+- Use new space/workspace system
+
+
+0.99.0 (2008-06-26)
+-------------------
+
+- Use new zojax.messaging api
+
+- Use new zojax.personal.core api
+
+
+0.2 (2008-03-06)
+----------------
+
+- Fixed bugs in reply form
+
+
+0.1 (2008-03-04)
+----------------
+
+- Initial release
