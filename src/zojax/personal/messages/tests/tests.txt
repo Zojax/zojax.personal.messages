@@ -1,0 +1,217 @@
+=============
+Browser tests
+=============
+
+    >>> from zope import component, interface, event
+    >>> from zope.testbrowser.testing import Browser
+    >>> from zope.lifecycleevent import ObjectCreatedEvent
+    >>> from zope.app.intid import IntIds
+    >>> from zope.app.intid.interfaces import IIntIds
+    >>> from zope.app.testing.functional import getRootFolder
+    >>> from zope.app.component.hooks import setSite
+    >>> from zojax.catalog.catalog import Catalog, ICatalog
+    >>> from zojax.personal.space.manager import PersonalSpaceManager, IPersonalSpaceManager
+
+    >>> root = getRootFolder()
+    >>> setSite(root)
+    >>> root['ids'] = IntIds()
+    >>> root.getSiteManager().registerUtility(root['ids'], IIntIds)
+    >>> root['catalog'] = Catalog()
+    >>> root.getSiteManager().registerUtility(root['catalog'], ICatalog)
+    >>> root['people'] = PersonalSpaceManager(title=u'People')
+    >>> root.getSiteManager().registerUtility(root['people'], IPersonalSpaceManager)
+
+Browsers
+
+    >>> user1 = Browser()
+    >>> user1.addHeader("Authorization", "Basic user1:userpw")
+    >>> user1.handleErrors = False
+    >>> user1.open('http://localhost/people/')
+    >>> user1.getLink('Personal space').click()
+
+    >>> user2 = Browser()
+    >>> user2.addHeader("Authorization", "Basic user2:userpw")
+    >>> user2.handleErrors = False
+    >>> user2.open('http://localhost/people/')
+    >>> user2.getLink('Personal space').click()
+
+    >>> user1.open('http://localhost/people/')
+    >>> user1.getLink('User2').click()
+
+    >>> print user1.contents
+    <html>
+    ...
+    <ul class="z-listing">
+      <li class="even">
+         <a href="http://localhost/people/user2/profile/sendmessage.html">
+         <img src="..." alt="SendPrivateMessage" width="16" height="16" border="0" />
+         Send private message</a>
+      </li>
+    </ul>
+    ...
+    </html>
+
+    >>> user2.getLink('Portal messaging').click()
+    >>> user2.getControl(name="messaging.personal.widgets.allow_messaging:list").value = ['false']
+    >>> user2.getControl(name="messaging.personal.buttons.save").click()
+
+    >>> user1.reload()
+    >>> 'Send private message' in user1.contents
+    False
+
+    >>> user2.getControl(name="messaging.personal.widgets.allow_messaging:list").value = ['true']
+    >>> user2.getControl(name="messaging.personal.buttons.save").click()
+
+    >>> user1.reload()
+    >>> user1.getLink('Send private message').click()
+
+    >>> user1.getControl('Send').click()
+    >>> print user1.contents
+    <html>
+    ...
+    ...Please fix indicated errors...
+    ...
+    </html>
+
+    >>> user1.getControl('Cancel').click()
+    >>> user1.url
+    'http://localhost/people/user2/profile/'
+
+    >>> user1.getLink('Send private message').click()
+    >>> user1.getControl('Subject').value = u'Test message'
+    >>> user1.getControl('Message body').value = u'Test message body'
+    >>> user1.getControl('Send').click()
+
+    >>> user2.reload()
+    >>> print user2.contents
+    <html>
+    ...
+    <li class="">
+       <a href="http://localhost/people/user2/messages/">
+         <img src="..." />
+         Messages (1)</a>
+    </li>
+    ...
+    </html>
+
+    >>> user2.getLink('Messages (1)').click()
+    >>> print user2.contents
+    <html>
+    ...
+    <table class="z-table">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>Title</th>
+          <th>From</th>
+          <th>Avatar</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd">
+           <td><input type="checkbox" name="msgid:list" value="0001" /></td>
+           <td>
+             <strong>
+                <a href="0001/">Test message</a>
+             </strong>
+           </td>
+           <td>
+             <a href="http://localhost/people/user1/">User1</a>
+           </td>
+           <td class="ctb-avatar">
+             <div>
+               <a href="http://localhost/people/user1/">
+                  <img src="http://localhost/@@profile.avatar/0" />
+               </a>
+             </div>
+           </td>
+           <td>...</td>
+         </tr>
+      </tbody>
+    </table>
+    ...
+    </html>
+
+    >>> user2.getLink('Test message').click()
+    >>> print user2.contents
+    <html>
+    ...
+    ...<div class="z-topframe even">
+      <h1>Test message</h1>
+      <div id="z-content-byline" class="discreet">
+        Created at ...
+      </div>
+      <br />
+      Test message body
+    </div>...
+    ...
+    </html>
+
+    >>> user2.getControl('Subject').value = u'Reply message'
+    >>> user2.getControl('Message body').value = u'Test message body'
+    >>> user2.getControl('Send').click()
+
+    >>> print user2.contents
+    <html>
+    ...Message has been sent...
+    </html>
+
+    >>> user1.open('http://localhost/people/user1/')
+    >>> user1.getLink('Messages (1)').click()
+    >>> user1.getLink('Reply message').click()
+    >>> print user1.contents
+    <html>
+    ...
+    ...<h1>Message sent by <a href="http://localhost/people/user2/">User2</a>
+    </h1><br /><div class="z-topframe even">
+      <h1>Reply message</h1>
+      <div id="z-content-byline" class="discreet">
+        Created at ...
+      </div>
+      <br />
+      Test message body
+    </div>...
+    ...
+    </html>
+
+    >>> user1.getControl('Send reply')
+    <SubmitControl name='form.buttons.53656e64207265706c79' type='submit'>
+
+    >>> from zope.securitypolicy.interfaces import IPrincipalPermissionManager
+    >>> IPrincipalPermissionManager(getRootFolder()).denyPermissionToPrincipal(
+    ...     'zojax.PersonalSpace', 'zope.user2')
+
+    >>> user1.reload()
+    >>> print user1.contents
+    <html>
+    ...
+    ...<h1>Message sent by User2
+    </h1><br /><div class="z-topframe even">
+      <h1>Reply message</h1>
+      <div id="z-content-byline" class="discreet">
+        Created ...
+      </div>
+      <br />
+      Test message body
+    </div>...
+    ...
+    </html>
+
+    >>> user1.getControl('Send reply')
+    Traceback (most recent call last):
+    ...
+    LookupError: label 'Send reply'
+
+    >>> user1.getLink('Messages (1)').click()
+    >>> user1.getControl(name="msgid:list").value = ['0001']
+    >>> user1.getControl('Remove messages').click()
+
+    >>> print user1.contents
+    <html>
+    ...
+    You have no messages.
+    ...
+    </html>
+
+    >>> setSite(None)

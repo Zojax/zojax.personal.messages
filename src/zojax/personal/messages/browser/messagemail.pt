@@ -1,0 +1,9 @@
+<h2>Message sent by <tal:block tal:content="view/sender" /></h2>
+<br />
+
+<div>
+  <h3 tal:content="context/title">Message title</h3>
+  <br />
+
+  <div tal:content="structure context/text"></div>
+</div>

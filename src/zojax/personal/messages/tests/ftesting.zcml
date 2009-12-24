@@ -1,0 +1,69 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zope">
+
+  <include package="zojax.autoinclude" file="meta.zcml" />
+  <includeAllDependencies package="zojax.personal.messages" extras="test" />
+
+  <includeOverrides
+     package="zojax.personal.space.tests" file="overrides.zcml" />
+
+  <interface
+     name="DefaultSkin"
+     interface="zojax.personal.space.tests.tests.IDefaultSkin"
+     type="zope.publisher.interfaces.browser.IBrowserSkinType" />
+
+  <browser:defaultSkin name="DefaultSkin" />
+
+  <securityPolicy
+      component="zojax.security.securitypolicy.SecurityPolicy" />
+
+  <role id="zope.Anonymous" title="Everybody" />
+  <role id="zope.Manager" title="Site Manager" />
+
+  <grant permission="zope.View"
+         role="zope.Anonymous" />
+
+  <grant permission="zope.app.dublincore.view"
+         role="zope.Anonymous" />
+
+  <!-- Principals -->
+  <unauthenticatedPrincipal
+      id="zope.anybody"
+      title="Unauthenticated User" />
+
+  <!-- Principal that tests generally run as -->
+  <principal
+      id="zope.mgr"
+      title="Manager"
+      login="mgr"
+      password="mgrpw" />
+
+  <principal
+      id="zope.user1"
+      title="User1"
+      login="user1"
+      password="userpw" />
+
+  <principal
+      id="zope.user2"
+      title="User2"
+      login="user2"
+      password="userpw" />
+
+  <grant role="zope.Manager" principal="zope.mgr" />
+
+  <grant permission="zojax.PersonalSpace"
+         principal="zope.user1" />
+  <grant permission="zope.View"
+         principal="zope.user1" />
+  <grant permission="zojax.PersonalSpace"
+         principal="zope.user2" />
+  <grant permission="zope.View"
+         principal="zope.user2" />
+
+  <grantAll role="zope.Manager" />
+
+</configure>
