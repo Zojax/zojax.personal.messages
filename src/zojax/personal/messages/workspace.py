@@ -77,7 +77,7 @@ class MessagesWorkspaceFactory(WorkspaceFactory):
 
     def isAvailable(self):
         request = getRequest()
-        if request.principal.id != self.space.principalId:
+        if request is not None and request.principal.id != self.space.principalId:
             return False
 
         return True
