@@ -1,13 +1,14 @@
-<h1>Message sent by <a tal:content="view/sender"
-		       tal:omit-tag="not:view/profile"
-		       tal:attributes="href view/profile"></a>
+<h1 i18n:translate="">Message sent by <a tal:content="view/sender"
+		                         i18n:name="sender"
+		                         tal:omit-tag="not:view/profile"
+		                         tal:attributes="href view/profile"></a>
 </h1>
 <br />
 
 <div class="z-topframe even">
   <h1 tal:content="context/title">Message title</h1>
-  <div id="z-content-byline" class="discreet">
-    Created at <tal:block content="structure formatter:fancyDatetime:context/__date__" />
+  <div id="z-content-byline" class="discreet" i18n:translate="">
+    Created at <tal:block i18n:name="date" content="structure formatter:fancyDatetime:context/__date__" />
   </div>
   <br />
 

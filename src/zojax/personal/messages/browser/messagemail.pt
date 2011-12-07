@@ -1,4 +1,4 @@
-<h2>Message sent by <tal:block tal:content="view/sender" /></h2>
+<h2 i18n:translate="">Message sent by <tal:block i18n:name="sender" tal:content="view/sender" /></h2>
 <br />
 
 <div>
