@@ -1,0 +1,130 @@
+##############################################################################
+#
+# Copyright (c) 2003-2004 Zope Corporation and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+##############################################################################
+msgid ""
+msgstr ""
+"Project-Id-Version: Development/Unknown\n"
+"POT-Creation-Date: Thu Dec  8 23:10:46 2011\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Zope 3 Developers <zope3-dev@zope.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: zope/app/locales/extract.py\n"
+
+#: src/zojax/personal/messages/browser/actions.py:36
+msgid "Send private message"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/configure.zcml:45
+msgid "Left column portlets"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/configure.zcml:50
+msgid "Right column portlets"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/messageview.pt:1
+#: src/zojax/personal/messages/browser/messagemail.pt:1
+msgid "Message sent by ${sender}"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/messageview.pt:11
+msgid "Created at ${date}"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/messageview.py:111
+#: src/zojax/personal/messages/browser/send.py:67
+msgid "Message has been sent."
+msgstr ""
+
+#: src/zojax/personal/messages/browser/messageview.py:42
+#: src/zojax/personal/messages/browser/send.py:34
+#: src/zojax/personal/messages/interfaces.py:31
+msgid "Subject"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/messageview.py:47
+#: src/zojax/personal/messages/browser/send.py:39
+msgid "Message body"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/messageview.py:53
+msgid "Reply"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/messageview.py:97
+msgid "Send reply"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/send.py:50
+#. Default: ""
+msgid "Send private message to ${user}"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/send.py:53
+msgid "Send"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/send.py:72
+msgid "Cancel"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/service.pt:10
+msgid "From"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/service.pt:11
+msgid "Avatar"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/service.pt:12
+msgid "Date"
+msgstr ""
+
+#: src/zojax/personal/messages/browser/service.pt:9
+msgid "Title"
+msgstr ""
+
+#: src/zojax/personal/messages/configure.zcml:45
+msgid "These are the preferences related to personal messages."
+msgstr ""
+
+#: src/zojax/personal/messages/configure.zcml:7
+msgid "View personal message"
+msgstr ""
+
+#: src/zojax/personal/messages/interfaces.py:55
+msgid "Allow"
+msgstr ""
+
+#: src/zojax/personal/messages/interfaces.py:56
+msgid "Allow other members send message to me."
+msgstr ""
+
+#: src/zojax/personal/messages/service.py:28
+#: src/zojax/personal/messages/configure.zcml:45
+#: src/zojax/personal/messages/browser/service.pt:2
+msgid "Personal messages"
+msgstr ""
+
+#: src/zojax/personal/messages/workspace.py:39
+#: src/zojax/personal/messages/workspace.py:64
+msgid "Messages"
+msgstr ""
+
+#: src/zojax/personal/messages/workspace.py:51
+msgid "Personal messaging service."
+msgstr ""
+
